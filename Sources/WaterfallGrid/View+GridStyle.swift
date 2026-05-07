@@ -12,38 +12,20 @@ extension View {
 
     /// Sets the style for `WaterfallGrid` within the environment of `self`.
     ///
-    /// - Parameter columns: The number of columns of the grid. The default is `2`.
-    /// - Parameter spacing: The distance between adjacent items. The default is `8`.
-    /// - Parameter animation: The animation to apply when data change. If `animation` is `nil`, the grid doesn't animate.
-    public func gridStyle(
-        columns: Int = 2,
-        spacing: CGFloat = 8,
-        animation: Animation? = .default
-    ) -> some View {
-        let style = GridSyle(
-            columnsInPortrait: columns,
-            columnsInLandscape: columns,
-            spacing: spacing,
-            animation: animation
-        )
-        return self.environment(\.gridStyle, style)
-    }
-
-    /// Sets the style for `WaterfallGrid` within the environment of `self`.
-    ///
-    /// - Parameter columnsInPortrait: The number of columns of the grid when the device is in a portrait orientation. The default is `2`.
-    /// - Parameter columnsInLandscape: The number of columns of the grid when the device is in a landscape orientation The default is `2`.
-    /// - Parameter spacing: The distance between adjacent items. The default is `8`.
-    /// - Parameter animation: The animation to apply when data change. If `animation` is `nil`, the grid doesn't animate.
-    @available(OSX, unavailable)
-    @available(tvOS, unavailable)
-    @available(visionOS, unavailable)
-    @available(watchOS, unavailable)
+    /// - Parameter columnsInPortrait: Columns when the horizontal size class is
+    ///   compact (iPhone portrait). Ignored on macOS, tvOS, and watchOS.
+    ///   The default is `2`.
+    /// - Parameter columnsInLandscape: Columns when the horizontal size class is
+    ///   regular (iPad or Mac). The default is `3`.
+    /// - Parameter spacing: Distance between adjacent columns and rows. The
+    ///   default is `8`.
+    /// - Parameter animation: Applied when the item collection changes. Pass
+    ///   `nil` (the default) for no animation.
     public func gridStyle(
         columnsInPortrait: Int = 2,
-        columnsInLandscape: Int = 2,
+        columnsInLandscape: Int = 3,
         spacing: CGFloat = 8,
-        animation: Animation? = .default
+        animation: Animation? = nil
     ) -> some View {
         let style = GridSyle(
             columnsInPortrait: columnsInPortrait,
@@ -54,4 +36,24 @@ extension View {
         return self.environment(\.gridStyle, style)
     }
 
+    /// Sets the style for `WaterfallGrid` within the environment of `self`,
+    /// using the same column count in every orientation.
+    ///
+    /// - Parameter columns: The number of columns. The default is `2`.
+    /// - Parameter spacing: Distance between adjacent columns and rows. The
+    ///   default is `8`.
+    /// - Parameter animation: Applied when the item collection changes. Pass
+    ///   `nil` (the default) for no animation.
+    public func gridStyle(
+        columns: Int = 2,
+        spacing: CGFloat = 8,
+        animation: Animation? = nil
+    ) -> some View {
+        gridStyle(
+            columnsInPortrait: columns,
+            columnsInLandscape: columns,
+            spacing: spacing,
+            animation: animation
+        )
+    }
 }
