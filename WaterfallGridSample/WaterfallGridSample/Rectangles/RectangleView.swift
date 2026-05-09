@@ -9,12 +9,11 @@ import SwiftUI
 struct RectangleView: View {
     let rectangle: RectangleModel
     let scrollDirection: Axis.Set
-    
+
     var body: some View {
         ZStack {
             Rectangle()
                 .foregroundColor(rectangle.color)
-                .frame(width: scrollDirection == .horizontal ? rectangle.size : nil, height: scrollDirection == .vertical ? rectangle.size : nil)
                 .cornerRadius(8)
             Text("\(rectangle.index)")
                 .foregroundColor(.white)

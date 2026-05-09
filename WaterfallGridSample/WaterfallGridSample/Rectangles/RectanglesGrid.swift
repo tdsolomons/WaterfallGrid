@@ -18,7 +18,7 @@ struct RectanglesGrid: View {
 
         return
             ScrollView(scrollDirection, showsIndicators: settings.showsIndicators) {
-                WaterfallGrid(rectangles) { rectangle in
+                WaterfallGrid(rectangles, aspectRatio: { $0.aspectRatio }) { rectangle in
                     RectangleView(rectangle: rectangle, scrollDirection: scrollDirection)
                 }
                 .gridStyle(
@@ -35,7 +35,7 @@ struct RectanglesGrid: View {
 
         return
             ScrollView(scrollDirection, showsIndicators: settings.showsIndicators) {
-                WaterfallGrid(rectangles) { rectangle in
+                WaterfallGrid(rectangles, aspectRatio: { $0.aspectRatio }) { rectangle in
                     RectangleView(rectangle: rectangle, scrollDirection: scrollDirection)
                 }
                 .gridStyle(
@@ -46,16 +46,15 @@ struct RectanglesGrid: View {
                 .scrollOptions(direction: scrollDirection)
                 .padding(settings.padding)
             }
-        
+
         #endif
-        
     }
 }
 
 struct SwiftUIView_Previews: PreviewProvider {
     @State static var rectangles: [RectangleModel] = []
     @State static var settings: Settings = Settings.default(for: .rectangles(.addRemove))
-    
+
     static var previews: some View {
         RectanglesGrid(rectangles: $rectangles, settings: $settings)
     }

@@ -8,17 +8,17 @@ import SwiftUI
 import WaterfallGrid
 
 struct CardsGrid: View {
-    
+
     @Binding var cards: [Card]
     @Binding var settings: Settings
-    
+
     var body: some View {
-        
+
         #if os(iOS) && !targetEnvironment(macCatalyst)
 
         return
             ScrollView(showsIndicators: settings.showsIndicators) {
-                WaterfallGrid((0..<cards.count), id: \.self) { index in
+                WaterfallGrid((0..<cards.count), id: \.self, aspectRatio: { _ in 1.0 }) { index in
                     CardView(card: self.cards[index])
                 }
                 .gridStyle(
@@ -29,12 +29,12 @@ struct CardsGrid: View {
                 )
                 .padding(settings.padding)
             }
-        
+
         #else
 
         return
             ScrollView(showsIndicators: settings.showsIndicators) {
-                WaterfallGrid((0..<cards.count), id: \.self) { index in
+                WaterfallGrid((0..<cards.count), id: \.self, aspectRatio: { _ in 1.0 }) { index in
                     CardView(card: self.cards[index])
                 }
                 .gridStyle(
@@ -46,7 +46,6 @@ struct CardsGrid: View {
             }
 
         #endif
-
     }
 }
 
@@ -56,7 +55,7 @@ struct CardsGrid_Previews: PreviewProvider {
         Card(image: "image1", title: LoremIpsum.randomTitle(), subtitle: LoremIpsum.randomSentences())
     ]
     static let settings: Settings = Settings.default(for: .images)
-    
+
     static var previews: some View {
         CardsGrid(cards: .constant(cards), settings: .constant(settings))
     }

@@ -8,10 +8,10 @@ import SwiftUI
 import WaterfallGrid
 
 struct ImagesGrid: View {
-    
+
     @Binding var images: [String]
     @Binding var settings: Settings
-    
+
     var body: some View {
         let scrollDirection: Axis.Set = settings.scrollDirection == .vertical ? .vertical : .horizontal
 
@@ -19,7 +19,7 @@ struct ImagesGrid: View {
 
         return
             ScrollView(scrollDirection, showsIndicators: settings.showsIndicators) {
-                WaterfallGrid((images), id: \.self) { image in
+                WaterfallGrid(images, id: \.self, aspectRatio: { _ in 1.0 }) { image in
                     Image(image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -38,7 +38,7 @@ struct ImagesGrid: View {
 
         return
             ScrollView(scrollDirection, showsIndicators: settings.showsIndicators) {
-                WaterfallGrid((images), id: \.self) { image in
+                WaterfallGrid(images, id: \.self, aspectRatio: { _ in 1.0 }) { image in
                     Image(image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -53,7 +53,6 @@ struct ImagesGrid: View {
             }
 
         #endif
-
     }
 }
 
